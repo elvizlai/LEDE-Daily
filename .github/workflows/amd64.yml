@@ -1,0 +1,32 @@
+name: x86_64
+
+on:
+  schedule:
+    - cron: 0 18 * * *
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: master
+
+      - name: Compile
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          curl -sSL https://gist.githubusercontent.com/elvizlai/d2259630bbe0d8e0058e2158cc39408e/raw/openwrt-x86_64.sh > openwrt-x86_64.sh
+          sudo chmod +x openwrt-x86_64.sh
+          sh ./openwrt-x86_64.sh
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: OpenWrt firmware
+          path: ./lede/artifact/
