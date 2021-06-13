@@ -1,11 +1,6 @@
 name: x86_64
 
-on:
-  schedule:
-    - cron: 0 18 * * 2
-  push:
-    branches:
-      - master
+on: workflow_dispatch
 
 jobs:
   build_openwrt:
