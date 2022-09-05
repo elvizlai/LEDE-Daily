@@ -1,4 +1,4 @@
-name: rpi_4
+name: RPI4
 
 on:
   schedule:

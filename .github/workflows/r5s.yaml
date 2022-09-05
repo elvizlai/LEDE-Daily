@@ -1,0 +1,38 @@
+name: R5S
+
+on: workflow_dispatch
+
+jobs:
+  build_openwrt:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: master
+
+      - name: Compile
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          curl -sSL https://gist.githubusercontent.com/elvizlai/d2259630bbe0d8e0058e2158cc39408e/raw/openwrt-friendly-r5s.sh > openwrt.sh
+          sh ./openwrt.sh
+
+      - name: Deliver buildinfo
+        uses: actions/upload-artifact@v2
+        with:
+          name: OpenWrt_buildinfo
+          path: ./lede/artifact/buildinfo/
+
+      - name: Deliver package
+        uses: actions/upload-artifact@v2
+        with:
+          name: OpenWrt_package
+          path: ./lede/artifact/package/
+
+      - name: Deliver firmware
+        uses: actions/upload-artifact@v2
+        with:
+          name: OpenWrt_firmware
+          path: ./lede/artifact/firmware/
