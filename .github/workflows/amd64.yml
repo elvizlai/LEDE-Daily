@@ -4,7 +4,7 @@ on: workflow_dispatch
 
 jobs:
   build_openwrt:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
       - name: Checkout
@@ -16,8 +16,8 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
-          curl -sSL https://gist.githubusercontent.com/elvizlai/d2259630bbe0d8e0058e2158cc39408e/raw/openwrt-x86_64.sh > openwrt-x86_64.sh
-          sh ./openwrt-x86_64.sh
+          curl -sSL https://gist.githubusercontent.com/elvizlai/d2259630bbe0d8e0058e2158cc39408e/raw/openwrt-x86_64.sh > openwrt.sh
+          sh ./openwrt.sh
 
       - name: Deliver buildinfo
         uses: actions/upload-artifact@v2
